@@ -23,10 +23,20 @@ $nodeValues = $crawler->filter('table tr')->each(function (Crawler $node, $i){
     return $array;
 });
 
+// Skip the first iteration because it includes the table header
+$first = false;
+
+echo "<pre>";
+echo ".mdl-icon{\n";
 foreach($nodeValues as $item){
-    echo "&.".$item['description']."::before{\n";
-    echo "    content: \"\\".$item['unicode']."\";\n";
-    echo "}\n";
+    // Skip first
+    if(!$first){
+        $first = true;
+        continue;
+    }
+    echo "    &.".$item['description']."::before{content:\"\\".$item['unicode']."\"}\n";
 };
+echo "}";
+echo "</pre>";
 
 ?>
